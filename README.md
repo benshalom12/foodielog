@@ -1,6 +1,8 @@
 # foodielog
 
-A new Flutter project.
+Many of us like to order food from reputed restaurants and enjoy the delicacies, But when the pandemic of 2020 hit, people were stuck at home, Lockdowns were imposed and restaurants in many places closed. People started to search recipes online to try exquisite food during lockdowns. This Application ‘Foodielog’ which uses Flutter UI Toolkit, was made so that people
+Can share pictures of their food and search for more recipes in a single app.
+
 
 ## Getting Started
 
