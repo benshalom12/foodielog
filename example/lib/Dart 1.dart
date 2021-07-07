@@ -1,7 +1,7 @@
 import 'dart:html';
 
 void main(List<String> args) {
-  print("");
+  print("Hello");
 }
 class User(){
 String email;//Better to have email of EMAIL type
