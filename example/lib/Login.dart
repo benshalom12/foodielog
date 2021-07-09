@@ -1,9 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:foodielog_example/Camera.dart';
 import 'package:foodielog_example/Settings.dart';
 import 'package:foodielog_example/main.dart';
+import 'package:camera/camera.dart';
 import 'chat.dart';
 
-void main() => runApp( Login0());
+//void main() => runApp( Login0());
+Future<void> main() async {
+  // Fetch the available cameras before initializing the app.
+  try {
+    WidgetsFlutterBinding.ensureInitialized();
+    cameras = await availableCameras();
+  } on CameraException catch (e) {
+    logError(e.code, e.description);
+  }
+  runApp(Login0());
+}
 
 class Login0 extends StatelessWidget {
   @override
@@ -15,6 +27,7 @@ class Login0 extends StatelessWidget {
         '/login': (BuildContext context) => new Ben(),
         '/chat': (BuildContext context) => new chat(),
         '/settings': (BuildContext context) => new Settings(),
+        '/home': (BuildContext context) => new Ben(),
       },
       home: new MyloginPage(),
     );

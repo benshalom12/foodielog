@@ -10,12 +10,15 @@ import 'package:foodielog_example/Cards.dart';
 import 'package:foodielog_example/Login.dart';
 import 'package:foodielog_example/home.dart';
 import 'package:foodielog_example/profile.dart';
+import 'package:camera/camera.dart';
 
+import 'Camera.dart';
 import 'Recipies.dart';
 
 void main() {
   runApp(Ben());
 }
+
 
 class Ben extends StatelessWidget {
   @override
@@ -24,7 +27,8 @@ class Ben extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: <String, WidgetBuilder>{
 
-        '/chat': (BuildContext context) => new chat(),
+    '/cam': (BuildContext context) => new CameraExampleHome(),
+        '/home': (BuildContext context) => new Ben(),
       },
       home: new MyApp(),
     );
@@ -59,7 +63,7 @@ List<Widget> paints = [
       child: Community(),
   ),
   Container(
-      color:Colors.orangeAccent
+      child:Community(),
   ),
   Container(
       //child: Recipes(),
@@ -78,7 +82,7 @@ int indexzero = 0;
         child :AppBar(
           leading:GestureDetector(
           onTap: (){
-            Navigator.of(context).pushNamed('/chat');
+            Navigator.of(context).pushNamed('/cam');
           },
           child:Icon(Icons.widgets_sharp)),
           actions: [
