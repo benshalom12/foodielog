@@ -12,6 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
   firebase_core: ^1.3.0
+  camerawesome: ^0.3.0+1
 
 dev_dependencies:
   flutter_test:
