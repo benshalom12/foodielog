@@ -23,7 +23,7 @@ class Login0 extends StatelessWidget {
     return new MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: <String, WidgetBuilder>{
-        '/signup': (BuildContext context) => new SignupPage(),
+       // '/signup': (BuildContext context) => new SignupPage(),
         '/login': (BuildContext context) => new Ben(),
         '/chat': (BuildContext context) => new chat(),
         '/settings': (BuildContext context) => new Settings(),
@@ -32,6 +32,11 @@ class Login0 extends StatelessWidget {
       home: new MyloginPage(),
     );
   }
+}
+
+class MyloginPage extends StatefulWidget {
+@override
+_MyloginPageState createState() => new _MyloginPageState();
 }
 
 class _MyloginPageState extends State<MyloginPage> {
@@ -43,12 +48,12 @@ class _MyloginPageState extends State<MyloginPage> {
         body: new Stack(
             fit:StackFit.expand,
             children:<Widget>[
-              new Image(
+             /* new Image(
                 image: new AssetImage("lib/assets/food.jpg"),
                 fit: BoxFit.cover,
                 color: Colors.black87,
                 colorBlendMode: BlendMode.darken,
-              ),
+              ),*/
 
 
               new Column(
@@ -131,7 +136,9 @@ class _MyloginPageState extends State<MyloginPage> {
                               color: Colors.pinkAccent,
                               elevation: 7.0,
                               child: GestureDetector(
-                                onTap: () {},
+                                onTap: () {
+                                  Navigator.of(context).pushNamed('/login');
+                                },
                                 child: Center(
                                   child: Text(
                                     'LOGIN',
@@ -189,7 +196,7 @@ class _MyloginPageState extends State<MyloginPage> {
                       SizedBox(width: 5.0),
                       InkWell(
                         onTap: () {
-                          Navigator.of(context).pushNamed('/signup');
+                         // Navigator.of(context).pushNamed('/signup');
                         },
                         child: Text(
                           'Register',

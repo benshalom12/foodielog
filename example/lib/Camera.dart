@@ -161,10 +161,10 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
                 SizedBox(width: 12,),
                 Expanded(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Text("foodielog",style: TextStyle( fontSize: 40 ,fontWeight: FontWeight.bold, color: Colors.white),),
+                      Text("Create Post",style: TextStyle( fontSize: 20 ,fontWeight: FontWeight.bold, color: Colors.white),),
                       SizedBox(height: 6,),
                     ],
                   ),
@@ -310,30 +310,30 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
           children: <Widget>[
             IconButton(
               icon: Icon(Icons.flash_on),
-              color: Colors.blue,
+              color: Colors.redAccent,
               onPressed: controller != null ? onFlashModeButtonPressed : null,
             ),
             IconButton(
               icon: Icon(Icons.exposure),
-              color: Colors.blue,
+              color: Colors.redAccent,
               onPressed:
               controller != null ? onExposureModeButtonPressed : null,
             ),
             IconButton(
               icon: Icon(Icons.filter_center_focus),
-              color: Colors.blue,
+              color: Colors.redAccent,
               onPressed: controller != null ? onFocusModeButtonPressed : null,
             ),
             IconButton(
               icon: Icon(enableAudio ? Icons.volume_up : Icons.volume_mute),
-              color: Colors.blue,
+              color: Colors.redAccent,
               onPressed: controller != null ? onAudioModeButtonPressed : null,
             ),
             IconButton(
               icon: Icon(controller?.value.isCaptureOrientationLocked ?? false
                   ? Icons.screen_lock_rotation
                   : Icons.screen_rotation),
-              color: Colors.blue,
+              color: Colors.redAccent,
               onPressed: controller != null
                   ? onCaptureOrientationLockButtonPressed
                   : null,
@@ -358,8 +358,8 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
             IconButton(
               icon: Icon(Icons.flash_off),
               color: controller?.value.flashMode == FlashMode.off
-                  ? Colors.orange
-                  : Colors.blue,
+                  ? Colors.redAccent
+                  : Colors.black26,
               onPressed: controller != null
                   ? () => onSetFlashModeButtonPressed(FlashMode.off)
                   : null,
@@ -367,8 +367,8 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
             IconButton(
               icon: Icon(Icons.flash_auto),
               color: controller?.value.flashMode == FlashMode.auto
-                  ? Colors.orange
-                  : Colors.blue,
+                  ? Colors.redAccent
+                  : Colors.black26,
               onPressed: controller != null
                   ? () => onSetFlashModeButtonPressed(FlashMode.auto)
                   : null,
@@ -376,8 +376,8 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
             IconButton(
               icon: Icon(Icons.flash_on),
               color: controller?.value.flashMode == FlashMode.always
-                  ? Colors.orange
-                  : Colors.blue,
+                  ? Colors.redAccent
+                  : Colors.black26,
               onPressed: controller != null
                   ? () => onSetFlashModeButtonPressed(FlashMode.always)
                   : null,
@@ -385,8 +385,8 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
             IconButton(
               icon: Icon(Icons.highlight),
               color: controller?.value.flashMode == FlashMode.torch
-                  ? Colors.orange
-                  : Colors.blue,
+                  ? Colors.redAccent
+                  : Colors.black26,
               onPressed: controller != null
                   ? () => onSetFlashModeButtonPressed(FlashMode.torch)
                   : null,
@@ -400,13 +400,13 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
   Widget _exposureModeControlRowWidget() {
     final ButtonStyle styleAuto = TextButton.styleFrom(
       primary: controller?.value.exposureMode == ExposureMode.auto
-          ? Colors.orange
-          : Colors.blue,
+          ? Colors.redAccent
+          : Colors.black26,
     );
     final ButtonStyle styleLocked = TextButton.styleFrom(
       primary: controller?.value.exposureMode == ExposureMode.locked
-          ? Colors.orange
-          : Colors.blue,
+          ? Colors.redAccent
+          : Colors.black26,
     );
 
     return SizeTransition(
@@ -478,13 +478,13 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
   Widget _focusModeControlRowWidget() {
     final ButtonStyle styleAuto = TextButton.styleFrom(
       primary: controller?.value.focusMode == FocusMode.auto
-          ? Colors.orange
-          : Colors.blue,
+          ? Colors.redAccent
+          : Colors.black26,
     );
     final ButtonStyle styleLocked = TextButton.styleFrom(
       primary: controller?.value.focusMode == FocusMode.locked
-          ? Colors.orange
-          : Colors.blue,
+          ? Colors.redAccent
+          : Colors.black26,
     );
 
     return SizeTransition(
@@ -538,7 +538,7 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
       children: <Widget>[
         IconButton(
           icon: const Icon(Icons.camera_alt),
-          color: Colors.blue,
+          color: Colors.redAccent,
           onPressed: cameraController != null &&
               cameraController.value.isInitialized &&
               !cameraController.value.isRecordingVideo
@@ -547,7 +547,7 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
         ),
         IconButton(
           icon: const Icon(Icons.videocam),
-          color: Colors.blue,
+          color: Colors.redAccent,
           onPressed: cameraController != null &&
               cameraController.value.isInitialized &&
               !cameraController.value.isRecordingVideo
@@ -559,7 +559,7 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
               cameraController.value.isRecordingPaused
               ? Icon(Icons.play_arrow)
               : Icon(Icons.pause),
-          color: Colors.blue,
+          color: Colors.redAccent,
           onPressed: cameraController != null &&
               cameraController.value.isInitialized &&
               cameraController.value.isRecordingVideo

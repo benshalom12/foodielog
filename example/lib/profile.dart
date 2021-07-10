@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 
 
+
 class HOME extends StatefulWidget {
 
 
@@ -74,9 +75,12 @@ class _HOMEState extends State<HOME> {
             iconSize: 60.0,
           ),
           CircleAvatar(
-            child: Image(
-              image: NetworkImage('https://www.mobilesmspk.net/user/images/wallpaper_images/2013/08/17/www.mobilesmspk.net_sunshine-river_2535.jpg'),
+            child: IconButton(
+              onPressed: () {},
+              icon: Icon(Icons.person),
+              color: Colors.white,
             ),
+            backgroundColor: Colors.pinkAccent,
           ),
           Text(
             'NAME',
@@ -98,18 +102,38 @@ class _HOMEState extends State<HOME> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
             children:<Widget> [
-              ElevatedButton.icon(
+              TextButton.icon(
                 onPressed: () {},
-                icon: Icon(Icons.circle),
-                label: Text('ADMIRERS'),
+                icon: Icon(
+                  Icons.circle_outlined,
+                  color: Colors.black,
+                ),
+                label: Text(
+                  'ADMIRERS',
+                  style: TextStyle(
+                    backgroundColor: Colors.pinkAccent,
+                    color: Colors.white,
+                  ),
+                ),
               ),
-              ElevatedButton.icon(
+              TextButton.icon(
                 onPressed: () {},
-                icon: Icon(Icons.circle),
-                label: Text('ADMIRING'),
+                icon: Icon(
+                  Icons.circle_outlined,
+                  color: Colors.black,
+                ),
+                label: Text(
+                  'ADMIRING',
+                  style: TextStyle(
+                    backgroundColor: Colors.pinkAccent,
+                    color: Colors.white,
+                  ),
+                ),
               ),
+
             ],
           ),
+          SizedBox(height:200.0),
         ],
       ),
 

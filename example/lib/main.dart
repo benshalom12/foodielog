@@ -84,7 +84,7 @@ int indexzero = 0;
           onTap: (){
             Navigator.of(context).pushNamed('/cam');
           },
-          child:Icon(Icons.widgets_sharp)),
+          child:Icon(Icons.camera)),
           actions: [
 
             new IconButton(icon: actionIcon,onPressed:(){
