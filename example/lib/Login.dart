@@ -216,6 +216,3 @@ class _MyloginPageState extends State<MyloginPage> {
 
   }
 }
-
-class MyloginPage {
-}
