@@ -1,9 +1,8 @@
 <component name="libraryTable">
   <library name="Flutter Plugins" type="FlutterPluginsLibraryType">
     <CLASSES>
-      <root url="file://$USER_HOME$/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core-1.3.0" />
-      <root url="file://$USER_HOME$/flutter/.pub-cache/hosted/pub.dartlang.org/camerawesome-0.3.0+1" />
-      <root url="file://$USER_HOME$/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core_web-1.1.0" />
+      <root url="file://$USER_HOME$/Downloads/flutter_windows_2.2.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core-1.3.0" />
+      <root url="file://$USER_HOME$/Downloads/flutter_windows_2.2.2-stable/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core_web-1.1.0" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
