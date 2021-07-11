@@ -1,94 +1,59 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
-class Home extends StatelessWidget{
+import 'package:recipes_app/model/recipe.dart';
+
+class RecipeImage extends StatelessWidget {
+  final String imageURL;
+
+  RecipeImage(this.imageURL);
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body : Column(
-                children: [
-                TextField(
-            )
-            border: OutlineInputBorder(),
-        on pressed(){
-      icon: Icon(Icon.plus);
-    }
-    MainAxisAlignment: MainAxisAlignment.center,
-    children: <Widget>[
-    Container(
-    margin: EdgeInsets.only(top: 8),
-    child: FlatButton(
-    child: Text(FlatButton),
-    )
-    )
-    MainAxisAlignment: MainAxisAlignment.center,
-    children: <Widget>[
-    Container(
-    margin: EdgeInsets.only(top: 8),
-    child: TextButton(
-    child: Text(FlatButton),
-    )
-    MainAxisAlignment: MainAxisAlignment.center,
-    children: <Widget>[
-    Container(
-    margin: EdgeInsets.only(top: 8),
-    child: FlatButton(
-    child: Text(FlatButton),
-    )
-    ]
-    ],
-    ),
+    return AspectRatio(
+      aspectRatio: 16.0 / 9.0,
+      child: Image.network(
+        imageURL,
+        fit: BoxFit.cover,
+      ),
     );
   }
 }
-)
 
 
-class Home0 extends StatelessWidget {
-  const Home0({Key? key}) : super(key: key);
+
+
+class RecipeTitle extends StatelessWidget {
+  final Recipe recipe;
+  final double padding;
+
+  RecipeTitle(this.recipe, this.padding);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          TextField(
-            onTap: (){
-
-            },
-    decoration: InputDecoration(
-      border: OutlineInputBorder(),
-    ),
-
+    return Padding(
+      padding: EdgeInsets.all(padding),
+      child: Column(
+        // Default value for crossAxisAlignment is CrossAxisAlignment.center.
+        // We want to align title and description of recipes left:
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            recipe.name,
+            style: Theme.of(context).textTheme.title,
           ),
-
-    children: <Widget>[
-    Container(
-    margin: EdgeInsets.only(top: 8),
-    child: FlatButton(
-    child: Text(FlatButton),
-    )
-    )
-
+          // Empty space:
+          SizedBox(height: 10.0),
+          Row(
+            children: [
+              Icon(Icons.timer, size: 20.0),
+              SizedBox(width: 5.0),
+              Text(
+                recipe.getDurationString,
+                style: Theme.of(context).textTheme.caption,
+              ),
+            ],
+          ),
         ],
-      )
+      ),
     );
-  }
-}
-
-class LogoImageAsset extends StatelessWidget{
-  @override
-  Widget build(BuildContext context) {
-    AssetImage assetImage = AssetImage('images/logo.jpg');
-    Image image = Image(image: assetImage);
-    return Container(child: image,);
-  }
-}
-class LogoImageAsset1 extends StatelessWidget{
-  @override
-  Widget build(BuildContext context) {
-    AssetImage assetImage = AssetImage('images/fries.jpg');
-    Image image = Image(image: assetImage);
-    return Container(child: image,);
   }
 }
