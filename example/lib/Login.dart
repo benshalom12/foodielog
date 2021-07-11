@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:foodielog_example/Camera.dart';
 import 'package:foodielog_example/Settings.dart';
@@ -48,12 +49,12 @@ class _MyloginPageState extends State<MyloginPage> {
         body: new Stack(
             fit:StackFit.expand,
             children:<Widget>[
-             /* new Image(
-                image: new AssetImage("lib/assets/food.jpg"),
+             new Image(
+                image: NetworkImage('https://images.unsplash.com/photo-1565299507177-b0ac66763828?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8YnVyZ2VyfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80'),
                 fit: BoxFit.cover,
-                color: Colors.black87,
-                colorBlendMode: BlendMode.darken,
-              ),*/
+                color: Colors.black26,
+                colorBlendMode: BlendMode.hardLight,
+              ),
 
 
               new Column(
