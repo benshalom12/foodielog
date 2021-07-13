@@ -41,6 +41,34 @@ _MyloginPageState createState() => new _MyloginPageState();
 }
 
 class _MyloginPageState extends State<MyloginPage> {
+  final formKey =new GlobalKey< FormState>();
+
+  String email,password;
+
+  Color pinkColor= Colors.purpleAccent;
+
+  // to check feild during submit
+  CheckFeilds(){
+    final form = formKey.currentState;
+    if (form.validate()){
+      form.save();
+      return true;
+    }
+    return false;
+  }
+
+  // to validate email
+  String validateEmail(Stirng value){
+    Pattern pattern= r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+    RegExp regex = new RegExp(pattern);
+    if (!regex.hasMatch(value))
+      return 'Enter Valid Email';
+    else
+      return null;
+  }
+
+
+  }
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -61,7 +89,10 @@ class _MyloginPageState extends State<MyloginPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Container(
-
+                          height: MediaQuery.of(context).size.height,
+                          width: MediaQuery.of(context).size.width,
+                          child: Form(key: formKey, child: _buildLoginForm())));}
+_buildLoginForm(){
                     child:Stack(
                       children: <Widget>[
                         Container(
@@ -94,13 +125,17 @@ class _MyloginPageState extends State<MyloginPage> {
                           TextField(
                             decoration: InputDecoration(
                                 labelText: 'EMAIL',
+                                hintText:"Enter valid email id"
                                 labelStyle: TextStyle(
                                     fontFamily: 'Schyler',
                                     fontWeight: FontWeight.bold,
                                     color: Colors.pinkAccent),
                                 focusedBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(color: Colors.white))),
-                          ),
+                            onChanged:(value){
+                               this.email=value;},
+                            validator:(value)=>
+                                value.isEmpty?'Email is required':validateEmail(value)),
                           SizedBox(height: 20.0),
                           TextField(
                             decoration: InputDecoration(
@@ -112,8 +147,18 @@ class _MyloginPageState extends State<MyloginPage> {
                                 focusedBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(color: Colors.white))),
                             obscureText: true,
+                            onchanged: (value){
+                                 this.password=value;
+                                 },
+                            validator:(value)=>
+                                   value.isEmpty?'password is required':null),
                           ),
                           SizedBox(height: 5.0),
+                          GestureDetector(
+                             onTap:(){
+                                    Navigator.of(context).push(
+                                    MaterialPageRoute(builder:(context)=> ResetPassword())),
+                           },
                           Container(
                             alignment: Alignment(1.0, 0.0),
                             padding: EdgeInsets.only(top: 15.0, left: 20.0),
@@ -124,11 +169,16 @@ class _MyloginPageState extends State<MyloginPage> {
                                     color: Colors.pink,
                                     fontWeight: FontWeight.bold,
                                     fontFamily: 'Schyler',
-                                    decoration: TextDecoration.underline),
+                                    decoration: TextDecoration.underline)),
                               ),
                             ),
                           ),
+
                           SizedBox(height: 40.0),
+                          GestureDetector(
+                              onTap(){
+                                if (checkFeilds())AuthService().signIn(email,password,context);
+                                },
                           Container(
                             height: 40.0,
                             child: Material(
@@ -136,23 +186,20 @@ class _MyloginPageState extends State<MyloginPage> {
                               shadowColor: Colors.pinkAccent,
                               color: Colors.pinkAccent,
                               elevation: 7.0,
-                              child: GestureDetector(
-                                onTap: () {
-                                  Navigator.of(context).pushNamed('/login');
-                                },
                                 child: Center(
                                   child: Text(
                                     'LOGIN',
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold,
-                                        fontFamily: 'Schyler'),
+                                        fontFamily: 'Schyler')),
                                   ),
                                 ),
                               ),
                             ),
                           ),
                           SizedBox(height: 20.0),
+
                           Container(
                             height: 40.0,
                             color: Colors.transparent,
@@ -197,7 +244,8 @@ class _MyloginPageState extends State<MyloginPage> {
                       SizedBox(width: 5.0),
                       InkWell(
                         onTap: () {
-                         // Navigator.of(context).pushNamed('/signup');
+                          Navigator.of(context).push()
+                            MaterialPageRoute(buildet:(context)=>SignupPage()));
                         },
                         child: Text(
                           'Register',
@@ -214,6 +262,6 @@ class _MyloginPageState extends State<MyloginPage> {
               )
             ]
         ));
-
+}
   }
 }
