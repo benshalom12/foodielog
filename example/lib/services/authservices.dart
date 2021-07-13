@@ -1,7 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterfbauth/error_handler.dart';
-import 'package:flutterfbauth/login_page.dart';
+import 'package:foodielog_example/error_handler.dart';
+// import 'package:foodielog_example/login_page.dart';
+import 'package:foodielog_example/Login.dart';
 import '../home.dart';
 class AuthService{
   //determine if the user is authenticated.
@@ -14,7 +15,7 @@ class AuthService{
           return home();
           }
         else
-          return Login();
+          return Login0();
     });
     }
 
@@ -29,7 +30,7 @@ class AuthService{
         .signInWithEmailAndPassword(email:email,password:password)
         .then((val){
       print('signed in');
-    })
+    });
   }
   // signup a new user
   signUp(String email,String password){
@@ -39,7 +40,7 @@ class AuthService{
 
   //reset password
   resetPasswordLink(String email){
-    FirebaseAuth.instance.sendpasswordResetEmail(email:email);
+    FirebaseAuth.instance.sendPasswordResetEmail(email: email);
   }
 
   }
