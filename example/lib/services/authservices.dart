@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfbauth/error_handler.dart';
 import 'package:flutterfbauth/login_page.dart';
-import '../home_page.dart';
+import '../home.dart';
 class AuthService{
   //determine if the user is authenticated.
   handleAuth(){
@@ -11,10 +11,10 @@ class AuthService{
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (BuildContext context,snapshot){
         if (snapshot.hasData){
-          return Homepage();
+          return home();
           }
         else
-          return Loginpage();
+          return Login();
     });
     }
 
