@@ -6,29 +6,6 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
-  final formKey = new GlobalKey< FormState>();
-  string email,password;
-  Color pink =Colors.pinkAccent;
-
-  // to check feilds during submit
-  CheckFeilds(){
-    final form = formKey.currentState;
-    if (form.validate()){
-      form.save();
-      return true;
-    }
-    return false;
-  }
-
-  //to validate email
-  String validateEmail(Stirng value){
-    Pattern pattern= r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-    RegExp regex = new RegExp(pattern);
-    if (!regex.hasMatch(value))
-      return 'Enter Valid Email';
-    else
-      return null;
-  }
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -44,15 +21,12 @@ class _SignupPageState extends State<SignupPage> {
                 colorBlendMode: BlendMode.darken,
               ),
 
+
               new Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Container(
-                          height: MediaQuery.of(context).size.height,
-                          width: MediaQuery.of(context).size.width,
-                          child: Form(key: formKey, child: _buildLoginForm())));}
-  _buildLoginForm(){
-                   child: Stack(
+                    child: Stack(
                       children: <Widget>[
                         Container(
                           padding: EdgeInsets.fromLTRB(15.0, 110.0, 0.0, 0.0),
@@ -86,13 +60,10 @@ class _SignupPageState extends State<SignupPage> {
                                     fontFamily: 'Montserrat',
                                     fontWeight: FontWeight.bold,
                                     color: Colors.grey),
+                                // hintText: 'EMAIL',
+                                // hintStyle: ,
                                 focusedBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(color: Colors.pink))),
-                            onChanged:(value){
-                              this.email=value;
-                              },
-                            validator:(value)=>
-                               value.isEmpty?'Email is required':validateEmail(value)),
                           ),
                           SizedBox(height: 10.0),
                           TextField(
@@ -105,11 +76,6 @@ class _SignupPageState extends State<SignupPage> {
                                 focusedBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(color: Colors.pink))),
                             obscureText: true,
-                            onchanged: (value){
-                              this.password=value;
-                              },
-                            validator:(value)=>
-                                 value.isEmpty?'password is required':null),
                           ),
                           SizedBox(height: 10.0),
                           TextField(
@@ -121,22 +87,8 @@ class _SignupPageState extends State<SignupPage> {
                                     color: Colors.grey),
                                 focusedBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(color: Colors.pink))),
-                            onchanged: (value){
-                                  this.password=value;
-                            },
-                            validator:(value)=>
-                                value.isEmpty?'username is required':null),
                           ),
                           SizedBox(height: 50.0),
-                          GestureDetector(
-                             onTap: () {
-                                  if (checkFields())
-                                     AuthService().signUp(email, password).then((userCreds) {
-                                          Navigator.of(context).pop();
-                                     }).catchError((e) {
-                                           ErrorHandler().errorDialog(context, e);
-                                     });
-                          },
                           Container(
                               height: 40.0,
                               child: Material(
@@ -144,6 +96,8 @@ class _SignupPageState extends State<SignupPage> {
                                 shadowColor: Colors.pinkAccent,
                                 color: Colors.pink,
                                 elevation: 7.0,
+                                child: GestureDetector(
+                                  onTap: () {},
                                   child: Center(
                                     child: Text(
                                       'SIGNUP',

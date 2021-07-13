@@ -36,39 +36,11 @@ class Login0 extends StatelessWidget {
 }
 
 class MyloginPage extends StatefulWidget {
-@override
-_MyloginPageState createState() => new _MyloginPageState();
+  @override
+  _MyloginPageState createState() => new _MyloginPageState();
 }
 
 class _MyloginPageState extends State<MyloginPage> {
-  final formKey =new GlobalKey< FormState>();
-
-  String email,password;
-
-  Color pinkColor= Colors.purpleAccent;
-
-  // to check feild during submit
-  CheckFeilds(){
-    final form = formKey.currentState;
-    if (form.validate()){
-      form.save();
-      return true;
-    }
-    return false;
-  }
-
-  // to validate email
-  String validateEmail(Stirng value){
-    Pattern pattern= r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-    RegExp regex = new RegExp(pattern);
-    if (!regex.hasMatch(value))
-      return 'Enter Valid Email';
-    else
-      return null;
-  }
-
-
-  }
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -77,11 +49,11 @@ class _MyloginPageState extends State<MyloginPage> {
         body: new Stack(
             fit:StackFit.expand,
             children:<Widget>[
-             new Image(
-                image: NetworkImage('https://images.unsplash.com/photo-1565299507177-b0ac66763828?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8YnVyZ2VyfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80'),
+              new Image(
+                image: new AssetImage("lib/assets/food.jpg"),
                 fit: BoxFit.cover,
-                color: Colors.black26,
-                colorBlendMode: BlendMode.hardLight,
+                color: Colors.black87,
+                colorBlendMode: BlendMode.darken,
               ),
 
 
@@ -89,14 +61,10 @@ class _MyloginPageState extends State<MyloginPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Container(
-                          height: MediaQuery.of(context).size.height,
-                          width: MediaQuery.of(context).size.width,
-                          child: Form(key: formKey, child: _buildLoginForm())));}
-_buildLoginForm(){
+
                     child:Stack(
                       children: <Widget>[
                         Container(
-                            height: MediaQuery.of(context).size.height,
                             height:110,
                             child:Center(
                               child: Text('FOODIELOG',
@@ -126,17 +94,13 @@ _buildLoginForm(){
                           TextField(
                             decoration: InputDecoration(
                                 labelText: 'EMAIL',
-                                hintText:"Enter valid email id"
                                 labelStyle: TextStyle(
                                     fontFamily: 'Schyler',
                                     fontWeight: FontWeight.bold,
                                     color: Colors.pinkAccent),
                                 focusedBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(color: Colors.white))),
-                            onChanged:(value){
-                               this.email=value;},
-                            validator:(value)=>
-                                value.isEmpty?'Email is required':validateEmail(value)),
+                          ),
                           SizedBox(height: 20.0),
                           TextField(
                             decoration: InputDecoration(
@@ -148,18 +112,8 @@ _buildLoginForm(){
                                 focusedBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(color: Colors.white))),
                             obscureText: true,
-                            onchanged: (value){
-                                 this.password=value;
-                                 },
-                            validator:(value)=>
-                                   value.isEmpty?'password is required':null),
                           ),
                           SizedBox(height: 5.0),
-                          GestureDetector(
-                             onTap:(){
-                                    Navigator.of(context).push(
-                                    MaterialPageRoute(builder:(context)=> ResetPassword())),
-                           },
                           Container(
                             alignment: Alignment(1.0, 0.0),
                             padding: EdgeInsets.only(top: 15.0, left: 20.0),
@@ -170,16 +124,11 @@ _buildLoginForm(){
                                     color: Colors.pink,
                                     fontWeight: FontWeight.bold,
                                     fontFamily: 'Schyler',
-                                    decoration: TextDecoration.underline)),
+                                    decoration: TextDecoration.underline),
                               ),
                             ),
                           ),
-
                           SizedBox(height: 40.0),
-                          GestureDetector(
-                              onTap(){
-                                if (checkFeilds())AuthService().signIn(email,password,context);
-                                },
                           Container(
                             height: 40.0,
                             child: Material(
@@ -187,20 +136,21 @@ _buildLoginForm(){
                               shadowColor: Colors.pinkAccent,
                               color: Colors.pinkAccent,
                               elevation: 7.0,
+                              child: GestureDetector(
+                                onTap: () {},
                                 child: Center(
                                   child: Text(
                                     'LOGIN',
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold,
-                                        fontFamily: 'Schyler')),
+                                        fontFamily: 'Schyler'),
                                   ),
                                 ),
                               ),
                             ),
                           ),
                           SizedBox(height: 20.0),
-
                           Container(
                             height: 40.0,
                             color: Colors.transparent,
@@ -245,8 +195,7 @@ _buildLoginForm(){
                       SizedBox(width: 5.0),
                       InkWell(
                         onTap: () {
-                          Navigator.of(context).push()
-                            MaterialPageRoute(buildet:(context)=>SignupPage()));
+                          Navigator.of(context).pushNamed('/signup');
                         },
                         child: Text(
                           'Register',
@@ -263,6 +212,7 @@ _buildLoginForm(){
               )
             ]
         ));
-}
+
   }
 }
+
