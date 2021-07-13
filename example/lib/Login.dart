@@ -96,6 +96,7 @@ _buildLoginForm(){
                     child:Stack(
                       children: <Widget>[
                         Container(
+                            height: MediaQuery.of(context).size.height,
                             height:110,
                             child:Center(
                               child: Text('FOODIELOG',
