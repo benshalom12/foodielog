@@ -1,3 +1,4 @@
+import 'dart:html';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -12,13 +13,13 @@ import 'package:foodielog_example/signupPage.dart';
 
 class AuthenticationService {
   final FirebaseAuth _firebaseAuth;
-  UserModel userModel = UserModel();
+  UserModel userModel = userModel();
   final userRef = FirebaseFirestore.instance.collection("users");
-  AuthenticationService(this._firebaseAuth);
-  String email;
-  String uid;
-  String username;
-  DateTime timestamp;
+  authServices(this._firebaseAuth);
+  late String email;
+  late String uid;
+  late String username;
+  late DateTime timestamp;
 
 
   // managing the user state via stream.
@@ -72,21 +73,23 @@ class AuthenticationService {
     userModel = UserModel(
         uid: uid, username: username, email: email, timestamp: timestamp);
 
-    await userRef.document(uid).setData(userModel.toMap(userModel));
+    await userRef.doc(uid).setData(userModel.toMap(userModel));
   }
 
   //4
   Future<UserModel> getUserFromDB({ required String uid}) async {
-    final DocumentSnapshot doc = await userRef.document(uid).get();
+    final DocumentSnapshot doc = await userRef.doc(uid).get();
 
     //print(doc.data());
 
-    return UserModel.fromMap(doc.data());
+    return UserModel.fromMap(document.data());
   }
 
   //5
   Future<void> signOut() async {
     await _firebaseAuth.signOut();
   }
+
+  noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
 }
 
