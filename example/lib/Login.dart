@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:foodielog_example/Camera.dart';
@@ -5,9 +6,9 @@ import 'package:foodielog_example/Settings.dart';
 import 'package:foodielog_example/main.dart';
 import 'package:camera/camera.dart';
 import 'chat.dart';
-
-//void main() => runApp( Login0());
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   // Fetch the available cameras before initializing the app.
   try {
     WidgetsFlutterBinding.ensureInitialized();
@@ -17,6 +18,8 @@ Future<void> main() async {
   }
   runApp(Login0());
 }
+//void main() => runApp( Login0());
+
 
 class Login0 extends StatelessWidget {
   @override

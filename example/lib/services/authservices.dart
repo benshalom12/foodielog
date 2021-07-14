@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -12,13 +14,14 @@ import 'package:foodielog_example/signupPage.dart';
 
 class AuthenticationService {
   final FirebaseAuth _firebaseAuth;
-  UserModel userModel = UserModel();
+  UserModel userModel = UserModel(
+  );
   final userRef = FirebaseFirestore.instance.collection("users");
   AuthenticationService(this._firebaseAuth);
-  String email;
-  String uid;
-  String username;
-  DateTime timestamp;
+  String? email;
+  String? uid;
+  String? username;
+  DateTime? timestamp;
 
 
   // managing the user state via stream.
@@ -61,8 +64,9 @@ class AuthenticationService {
         return "Something Went Wrong.";
       }
     } catch (e) {
-      print(e);
+      throw(e);
     }
+
   }
 
 
@@ -72,7 +76,7 @@ class AuthenticationService {
     userModel = UserModel(
         uid: uid, username: username, email: email, timestamp: timestamp);
 
-    await userRef.document(uid).setData(userModel.toMap(userModel));
+    await userRef.doc(uid).set(userModel.toMap(userModel));
   }
 
   //4
