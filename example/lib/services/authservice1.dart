@@ -51,15 +51,15 @@ class AuthService {
       // Logged in
 
       // Send access token to server for validation and auth
-        final FacebookAccessToken accessToken = res.accessToken;
+        final FacebookAccessToken? accessToken = res.accessToken;
         final AuthCredential authCredential =
-        FacebookAuthProvider.credential(accessToken.token);
+        FacebookAuthProvider.credential(accessToken!.token);
         final result =
         await FirebaseAuth.instance.signInWithCredential(authCredential);
 
         // Get profile data
         final profile = await fb.getUserProfile();
-        print('Hello, ${profile.name}! You ID: ${profile.userId}');
+        print('Hello, ${profile!.name}! You ID: ${profile!.userId}');
 
         // Get user profile image url
         final imageUrl = await fb.getProfileImageUrl(width: 100);
