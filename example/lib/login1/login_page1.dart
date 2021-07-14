@@ -29,7 +29,7 @@ class _LoginPageState extends State<LoginPage> {
   String? validateEmail(String value) {
     Pattern pattern =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-    RegExp regex = new RegExp(pattern);
+    RegExp regex = new RegExp(pattern.toString());
     if (!regex.hasMatch(value))
       return 'Enter Valid Email';
     else
@@ -140,7 +140,7 @@ class _LoginPageState extends State<LoginPage> {
           SizedBox(height: 20.0),
           GestureDetector(
             onTap: () {
-              AuthService().fbSignIn();
+           //   AuthService().fbSignIn();
             },
             child: Container(
                 height: 50.0,
