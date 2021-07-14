@@ -4,6 +4,7 @@ import 'package:foodielog_example/login1/error_handler.dart';
 import 'package:foodielog_example/login1/login_page1.dart';
 // import  'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:foodielog_example/login1/home_page1.dart';
+import 'package:foodielog_example/main.dart';
 
 class AuthService {
   //Determine if the user is authenticated.
@@ -12,7 +13,7 @@ class AuthService {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (BuildContext context, snapshot) {
           if (snapshot.hasData) {
-            return HomePage();
+            return Ben();
           } else
             return LoginPage();
         });

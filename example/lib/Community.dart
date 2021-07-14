@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foodielog_example/services/authservice1.dart';
 
 class Community extends StatelessWidget {
 const Community({Key? key}) : super(key: key);
@@ -23,7 +24,9 @@ primary: Colors.white,
 onSurface: Colors.black,
   backgroundColor: Colors.redAccent,
 ),
-onPressed: null,
+  onPressed: () {
+    AuthService().signOut();
+  },
 child: Text('ASK QUESTIONS?'),
 ),
 Questions(),

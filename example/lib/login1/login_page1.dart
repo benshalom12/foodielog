@@ -55,13 +55,13 @@ class _LoginPageState extends State<LoginPage> {
               width: 200.0,
               child: Stack(
                 children: [
-                  Text('FOODIE LOG',
-                      style: TextStyle(fontFamily: 'Trueno', fontSize: 60.0)),
+                  Text('foodielog',
+                      style: TextStyle(fontFamily: 'Trueno', fontSize: 40.0)),
                   Positioned(
                       top: 50.0,
                       child: Text('Search, Cook, Eat, Share',
                           style:
-                          TextStyle(fontFamily: 'Trueno', fontSize: 60.0))),
+                          TextStyle(fontFamily: 'Trueno', fontSize: 20.0))),
                   Positioned(
                       top: 97.0,
                       left: 175.0,
@@ -153,18 +153,7 @@ class _LoginPageState extends State<LoginPage> {
                           width: 1.0),
                       color: Colors.transparent,
                       borderRadius: BorderRadius.circular(25.0)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Center(
-                          child: ImageIcon(AssetImage('assets/facebook.png'),
-                              size: 15.0)),
-                      SizedBox(width: 10.0),
-                      Center(
-                          child: Text('Login with facebook',
-                              style: TextStyle(fontFamily: 'Trueno'))),
-                    ],
-                  ),
+
                 )),
           ),
           SizedBox(height: 25.0),

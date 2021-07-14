@@ -3,11 +3,11 @@ import 'dart:async';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/services.dart';
 import 'package:foodielog_example/Community.dart';
-import 'package:foodielog_example/Recipes.dart';
+// import 'package:foodielog_example/Recipes.dart';
 import 'package:foodielog_example/chat.dart';
 import 'package:foodielog_example/foodielog.dart';
 import 'package:foodielog_example/Cards.dart';
-import 'package:foodielog_example/login/Login.dart';
+// import 'package:foodielog_example/login/Login.dart';
 import 'package:foodielog_example/home.dart';
 import 'package:foodielog_example/profile.dart';
 import 'package:camera/camera.dart';
@@ -15,12 +15,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import 'Camera.dart';
-import 'Recipies.dart';
+// import 'Recipies.dart';
 //firebase password mACdG2VSZvGSCtM
 //firebase login foodielogv2@gmail.com
-void main() {
-  runApp(Ben());
-}
+// void main() {
+//   runApp(Ben());
+// }
+
 
 
 class Ben extends StatelessWidget {
@@ -29,7 +30,11 @@ class Ben extends StatelessWidget {
     return new MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: <String, WidgetBuilder>{
-
+        // '/signup': (BuildContext context) => new SignupPage(),
+        '/login': (BuildContext context) => new Ben(),
+        '/chat': (BuildContext context) => new chat(),
+        // '/settings': (BuildContext context) => new Settings(),
+        '/home': (BuildContext context) => new Ben(),
     '/cam': (BuildContext context) => new CameraExampleHome(),
         '/home': (BuildContext context) => new Ben(),
       },

@@ -6,6 +6,8 @@
 
 import 'dart:async';
 import 'dart:io';
+import 'package:foodielog_example/upload_post.dart';
+
 import 'main.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
@@ -690,10 +692,16 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
       if (mounted) {
         setState(() {
           imageFile = file;
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Upload(tempPostImage: file),
+            ),
+          );
           videoController?.dispose();
           videoController = null;
         });
-        if (file != null) showInSnackBar('Picture saved to ${file.path}');
+        // if (file != null) showInSnackBar('Picture saved to ${file.path}');
       }
     });
   }
