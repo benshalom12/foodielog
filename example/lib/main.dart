@@ -17,7 +17,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'Camera.dart';
 import 'Recipies.dart';
 //firebase password mACdG2VSZvGSCtM
-//firebase login firebasev2@gmail.com
+//firebase login foodielogv2@gmail.com
 void main() {
   runApp(Ben());
 }

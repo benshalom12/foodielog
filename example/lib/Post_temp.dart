@@ -1,6 +1,27 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-void main()=> runApp(Post0());
+import 'package:flutter/material.dart';
+import 'package:rive/rive.dart';
+
+void main()=> runApp(Post1());
+
+class Post1 extends StatefulWidget {
+  const Post1({Key? key}) : super(key: key);
+
+  @override
+  _Post1State createState() => _Post1State();
+}
+final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance.collection('users').snapshots();
+
+class _Post1State extends State<Post1> {
+  @override
+  Widget build(BuildContext context) {
+    return Post0();
+  }
+}
+
+// late FirebaseFirestore app;
 class Post0 extends StatelessWidget {
   const Post0({Key? key}) : super(key: key);
 
@@ -11,7 +32,7 @@ class Post0 extends StatelessWidget {
         appBar: AppBar(
           title: Text('Test Environment'),
         ),
-        body: Post(),
+        body: SimpleAnimation(),
       ),
     );
   }
@@ -20,6 +41,20 @@ class Post0 extends StatelessWidget {
 
 
 
+
+class SimpleAnimation extends StatelessWidget {
+  const SimpleAnimation({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      body: Center(
+        child: RiveAnimation.network("https://public.rive.app/community/runtime-files/262-518-eggard-is-a-gud-boi.riv"),
+        ),
+      );
+
+  }
+}
 
 
 
