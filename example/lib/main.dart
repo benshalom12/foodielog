@@ -11,6 +11,8 @@ import 'package:foodielog_example/Login.dart';
 import 'package:foodielog_example/home.dart';
 import 'package:foodielog_example/profile.dart';
 import 'package:camera/camera.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 import 'Camera.dart';
 import 'Recipies.dart';

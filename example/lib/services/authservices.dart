@@ -1,46 +1,92 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:foodielog_example/error_handler.dart';
-// import 'package:foodielog_example/login_page.dart';
-import 'package:foodielog_example/Login.dart';
-import '../home.dart';
-class AuthService{
-  //determine if the user is authenticated.
-  handleAuth(){
-    return StreamBuilder(
+import 'package:foodielog_example/login.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:foodielog_example/user_model.dart';
+import 'package:foodielog_example/signupPage.dart';
 
-      stream: FirebaseAuth.instance.authStateChanges(),
-      builder: (BuildContext context,snapshot){
-        if (snapshot.hasData){
-          return home();
-          }
-        else
-          return Login0();
-    });
+
+
+class AuthenticationService {
+  final FirebaseAuth _firebaseAuth;
+  UserModel userModel = UserModel();
+  final userRef = FirebaseFirestore.instance.collection("users");
+  AuthenticationService(this._firebaseAuth);
+  String email;
+  String uid;
+  String username;
+  DateTime timestamp;
+
+
+  // managing the user state via stream.
+  // stream provides an immediate event of
+  // the user's current authentication state,
+  // and then provides subsequent events whenever
+  // the authentication state changes.
+  Stream<User>? get authStateChanges {_firebaseAuth.authStateChanges();}
+
+  //1
+  Future<String> signIn({required String email, required String password}) async {
+    try {
+      await _firebaseAuth.signInWithEmailAndPassword(
+          email: email, password: password);
+
+      return "Signed In";
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        return "No user found for that email.";
+      } else if (e.code == 'wrong-password') {
+        return "Wrong password provided for that user.";
+      } else {
+        return "Something Went Wrong.";
+      }
     }
-
-  // sign out
-  signOut(){
-    FirebaseAuth.instance.signOut();
   }
 
-  //sign In
-  signIn(String email,String password, context) {
-    FirebaseAuth.instance
-        .signInWithEmailAndPassword(email:email,password:password)
-        .then((val){
-      print('signed in');
-    });
-  }
-  // signup a new user
-  signUp(String email,String password){
-    return  FirebaseAuth.instance
-        .createUserWithEmailAndPassword(email:email,password:password);
+  //2
+  Future<String> signUp({required String email,required String password}) async {
+    try {
+      await _firebaseAuth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      return "Signed Up";
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        return "The password provided is too weak.";
+      } else if (e.code == 'email-already-in-use') {
+        return "The account already exists for that email.";
+      } else {
+        return "Something Went Wrong.";
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 
-  //reset password
-  resetPasswordLink(String email){
-    FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+
+  //3
+  Future<void> addUserToDB(
+      { required String uid, required String username, required String email,required DateTime timestamp}) async {
+    userModel = UserModel(
+        uid: uid, username: username, email: email, timestamp: timestamp);
+
+    await userRef.document(uid).setData(userModel.toMap(userModel));
   }
 
+  //4
+  Future<UserModel> getUserFromDB({ required String uid}) async {
+    final DocumentSnapshot doc = await userRef.document(uid).get();
+
+    //print(doc.data());
+
+    return UserModel.fromMap(doc.data());
   }
+
+  //5
+  Future<void> signOut() async {
+    await _firebaseAuth.signOut();
+  }
+}
+

@@ -33,7 +33,7 @@ dependencies:
   cloud_functions: ^2.0.0
   firebase_messaging: ^10.0.3
   firebase_storage: ^9.0.0
-
+  font_awesome_flutter: ^8.10.0
 
 dev_dependencies:
   flutter_test:
