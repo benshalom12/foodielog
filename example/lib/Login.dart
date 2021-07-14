@@ -1,218 +1,191 @@
-import 'package:flutter/cupertino.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:foodielog_example/Camera.dart';
-import 'package:foodielog_example/Settings.dart';
-import 'package:foodielog_example/main.dart';
-import 'package:camera/camera.dart';
-import 'chat.dart';
+import'package:foodielog_example/user_model.dart';
+import'package:foodielog_example/services/authservices.dart';
+import 'package:provider/provider.dart';
 
-//void main() => runApp( Login0());
-Future<void> main() async {
-  // Fetch the available cameras before initializing the app.
-  try {
-    WidgetsFlutterBinding.ensureInitialized();
-    cameras = await availableCameras();
-  } on CameraException catch (e) {
-    logError(e.code, e.description);
-  }
-  runApp(Login0());
+class LoginPage extends StatefulWidget {
+  @override
+  _LoginPageState createState() => _LoginPageState();
 }
 
-class Login0 extends StatelessWidget {
+class _LoginPageState extends State<LoginPage> {
+  bool _obscureText = true;
+  String _email, _password;
+  bool _isSubmitting;
+
+  final _formKey = GlobalKey<FormState>();
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  FirebaseAuth auth = FirebaseAuth.instance;
+  final DateTime timestamp = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      debugShowCheckedModeBanner: false,
-      routes: <String, WidgetBuilder>{
-       // '/signup': (BuildContext context) => new SignupPage(),
-        '/login': (BuildContext context) => new Ben(),
-        '/chat': (BuildContext context) => new chat(),
-        '/settings': (BuildContext context) => new Settings(),
-        '/home': (BuildContext context) => new Ben(),
-      },
-      home: new MyloginPage(),
+    return Scaffold(
+      key: _scaffoldKey,
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text("GeeksForGeeks"),
+      ),
+      body: Container(
+        padding: EdgeInsets.symmetric(horizontal: 20),
+        child: Center(
+          child: SingleChildScrollView(
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  _showTitle(),
+                  _showEmailInput(),
+                  _showPasswordInput(),
+                  _showFormActions()
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
-}
 
-class MyloginPage extends StatefulWidget {
-  @override
-  _MyloginPageState createState() => new _MyloginPageState();
-}
+  _showTitle() {
+    return Text(
+      "Login",
+      style: TextStyle(fontSize: 72, fontWeight: FontWeight.bold),
+    );
+  }
 
-class _MyloginPageState extends State<MyloginPage> {
-  @override
-  Widget build(BuildContext context) {
-    return new Scaffold(
-        backgroundColor: Colors.transparent,
-        resizeToAvoidBottomInset: false,
-        body: new Stack(
-            fit:StackFit.expand,
-            children:<Widget>[
-              new Image(
-                image: new AssetImage("lib/assets/food.jpg"),
-                fit: BoxFit.cover,
-                color: Colors.black87,
-                colorBlendMode: BlendMode.darken,
+  _showEmailInput() {
+    return Padding(
+      padding: EdgeInsets.only(top: 20),
+      child: TextFormField(
+        onSaved: (val) => _email = val,
+        validator: (val) => !val.contains("@") ? "Invalid Email" : null,
+        decoration: InputDecoration(
+            border: OutlineInputBorder(),
+            labelText: "Email",
+            hintText: "Enter Valid Email",
+            icon: Icon(
+              Icons.mail,
+              color: Colors.grey,
+            )),
+      ),
+    );
+  }
+
+  _showPasswordInput() {
+    return Padding(
+      padding: EdgeInsets.only(top: 20),
+      child: TextFormField(
+        onSaved: (val) => _password = val,
+        validator: (val) => val.length < 6 ? "Password Is Too Short" : null,
+        obscureText: _obscureText,
+        decoration: InputDecoration(
+            suffixIcon: GestureDetector(
+              onTap: () {
+                setState(() {
+                  _obscureText = !_obscureText;
+                });
+              },
+              child:
+              Icon(_obscureText ? Icons.visibility_off : Icons.visibility),
+            ),
+            border: OutlineInputBorder(),
+            labelText: "Password",
+            hintText: "Enter Valid Password",
+            icon: Icon(
+              Icons.lock,
+              color: Colors.grey,
+            )),
+      ),
+    );
+  }
+
+  _showFormActions() {
+    return Padding(
+      padding: EdgeInsets.only(top: 20),
+      child: Column(
+        children: [
+          _isSubmitting == true
+              ? CircularProgressIndicator(
+            valueColor:
+            AlwaysStoppedAnimation(Theme.of(context).primaryColor),
+          )
+              : RaisedButton(
+              child: Text(
+                "Submit",
+                style: TextStyle(color: Colors.black, fontSize: 18),
               ),
+              elevation: 8.0,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10))),
+              color: Colors.orange,
+              onPressed: _submit),
+        ],
+      ),
+    );
+  }
 
+  _submit() {
+    final _form = _formKey.currentState;
+    if (_form.validate()) {
+      _form.save();
+      //print("Email $_email, Password $_password");
+      _LoginUser();
+    } else {
+      print("Form is Invalid");
+    }
+  }
 
-              new Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Container(
+  _LoginUser() async {
+    setState(() {
+      _isSubmitting = true;
+    });
 
-                    child:Stack(
-                      children: <Widget>[
-                        Container(
-                            height:110,
-                            child:Center(
-                              child: Text('FOODIELOG',
-                                  style: TextStyle(
-                                      color: Colors.pinkAccent,fontFamily: 'ITALIC',
-                                      fontSize: 50.0, fontWeight: FontWeight.bold)),
-                            )
-                        ),
+    final logMessage = await context
+        .read<AuthenticationService>()
+        .signIn(email: _email, password: _password);
 
-                        Container(
-                            height:180,
-                            child:Center(
-                              child: Text('Search, Cook, Eat, Share',
-                                  style: TextStyle(
-                                      color: Colors.white,fontFamily: 'ITALIC',
-                                      fontSize: 20.0, fontWeight: FontWeight.bold)),
-                            )
-                        ),
-                      ],
-                    ),
-                  ),
+    logMessage == "Signed In"
+        ? _showSuccessSnack(logMessage)
+        : _showErrorSnack(logMessage);
 
-                  Container(
-                      padding: EdgeInsets.only(top: 35.0, left: 20.0, right: 20.0),
-                      child: Column(
-                        children: <Widget>[
-                          TextField(
-                            decoration: InputDecoration(
-                                labelText: 'EMAIL',
-                                labelStyle: TextStyle(
-                                    fontFamily: 'Schyler',
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.pinkAccent),
-                                focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.white))),
-                          ),
-                          SizedBox(height: 20.0),
-                          TextField(
-                            decoration: InputDecoration(
-                                labelText: 'PASSWORD',
-                                labelStyle: TextStyle(
-                                    fontFamily: 'Schyler',
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.pinkAccent),
-                                focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.white))),
-                            obscureText: true,
-                          ),
-                          SizedBox(height: 5.0),
-                          Container(
-                            alignment: Alignment(1.0, 0.0),
-                            padding: EdgeInsets.only(top: 15.0, left: 20.0),
-                            child: InkWell(
-                              child: Text(
-                                'Forgot Password',
-                                style: TextStyle(
-                                    color: Colors.pink,
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: 'Schyler',
-                                    decoration: TextDecoration.underline),
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 40.0),
-                          Container(
-                            height: 40.0,
-                            child: Material(
-                              borderRadius: BorderRadius.circular(20.0),
-                              shadowColor: Colors.pinkAccent,
-                              color: Colors.pinkAccent,
-                              elevation: 7.0,
-                              child: GestureDetector(
-                                onTap: () {},
-                                child: Center(
-                                  child: Text(
-                                    'LOGIN',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: 'Schyler'),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 20.0),
-                          Container(
-                            height: 40.0,
-                            color: Colors.transparent,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  border: Border.all(
+    //print("I am logMessage $logMessage");
 
-                                      style: BorderStyle.solid,
-                                      width: 1.0),
-                                  color: Colors.pinkAccent,
-                                  borderRadius: BorderRadius.circular(20.0)),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  SizedBox(width: 10.0),
-                                  Center(
-                                    child: Text('Log in with google',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                            fontFamily: 'Schyler')),
-                                  )
-                                ],
-                              ),
-                            ),
-                          )
-                        ],
-                      )),
-                  SizedBox(height: 15.0),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        'New to foodielog ?',
+    if (logMessage == "Signed In") {
+      return;
+    } else {
+      setState(() {
+        _isSubmitting = false;
+      });
+    }
+  }
 
-                        style: TextStyle(
-                          fontFamily: 'Schyler',
-                          color: Colors.pink,
-                        ),
-                      ),
+  _showSuccessSnack(String message) async {
+    final snackbar = SnackBar(
+      backgroundColor: Colors.black,
+      content: Text(
+        "$message",
+        style: TextStyle(color: Colors.green),
+      ),
+    );
+    _scaffoldKey.currentState.showSnackBar(snackbar);
+    _formKey.currentState.reset();
+  }
 
-                      SizedBox(width: 5.0),
-                      InkWell(
-                        onTap: () {
-                          Navigator.of(context).pushNamed('/signup');
-                        },
-                        child: Text(
-                          'Register',
-                          style: TextStyle(
-                              color: Colors.pink,
-                              fontFamily: 'Schyler',
-                              fontWeight: FontWeight.bold,
-                              decoration: TextDecoration.underline),
-                        ),
-                      )
-                    ],
-                  )
-                ],
-              )
-            ]
-        ));
-
+  _showErrorSnack(String message) {
+    final snackbar = SnackBar(
+      backgroundColor: Colors.black,
+      content: Text(
+        "$message",
+        style: TextStyle(color: Colors.red),
+      ),
+    );
+    _scaffoldKey.currentState.showSnackBar(snackbar);
+    setState(() {
+      _isSubmitting = false;
+    });
   }
 }
 
