@@ -7,7 +7,7 @@ import 'package:foodielog_example/login.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:foodielog_example/user_model.dart';
-import 'package:foodielog_example/signupPage.dart';
+import 'package:foodielog_example/login/signupPage.dart';
 
 
 
