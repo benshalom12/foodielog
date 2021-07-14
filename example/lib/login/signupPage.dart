@@ -13,10 +13,10 @@ class _RegisterPageState extends State<RegisterPage> {
 
 //To Toggle Password Text Visibility.
   bool _obscureText = true;
-  String _username, _email, _password;
+ late String _username, _email, _password;
 
 //For the loading state.
-  bool _isSubmitting;
+  late bool _isSubmitting;
 
   final _formKey = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -64,8 +64,8 @@ class _RegisterPageState extends State<RegisterPage> {
     return Padding(
       padding: EdgeInsets.only(top: 20),
       child: TextFormField(
-        onSaved: (val) => _username = val,
-        validator: (val) => val.length < 6 ? "Username is too short." : null,
+        onSaved: (val) => _username = val!,
+        validator: (val) => val!.length < 6 ? "Username is too short." : null,
         decoration: InputDecoration(
             border: OutlineInputBorder(),
             labelText: "Username",
@@ -83,8 +83,8 @@ class _RegisterPageState extends State<RegisterPage> {
     return Padding(
       padding: EdgeInsets.only(top: 20),
       child: TextFormField(
-        onSaved: (val) => _email = val,
-        validator: (val) => !val.contains("@") ? "Invalid Email" : null,
+        onSaved: (val) => _email = val!,
+        validator: (val) => !val!.contains("@") ? "Invalid Email" : null,
         decoration: InputDecoration(
             border: OutlineInputBorder(),
             labelText: "Email",
@@ -102,8 +102,8 @@ class _RegisterPageState extends State<RegisterPage> {
     return Padding(
       padding: EdgeInsets.only(top: 20),
       child: TextFormField(
-        onSaved: (val) => _password = val,
-        validator: (val) => val.length < 6 ? "Password Is Too Short" : null,
+        onSaved: (val) => _password = val!,
+        validator: (val) => val!.length < 6 ? "Password Is Too Short" : null,
         obscureText: _obscureText,
         decoration: InputDecoration(
             suffixIcon: GestureDetector(
@@ -155,7 +155,7 @@ class _RegisterPageState extends State<RegisterPage> {
 //6
   _submit() {
     final _form = _formKey.currentState;
-    if (_form.validate()) {
+    if (_form!.validate()) {
       _form.save();
       //print("Email $_email, Password $_password, Username $_username");
       _registerUser();
@@ -198,8 +198,8 @@ class _RegisterPageState extends State<RegisterPage> {
         style: TextStyle(color: Colors.green),
       ),
     );
-    _scaffoldKey.currentState.showSnackBar(snackbar);
-    _formKey.currentState.reset();
+    _scaffoldKey.currentState!.showSnackBar(snackbar);
+    _formKey.currentState!.reset();
   }
 
 //When FirebaseAuth Catches error, error snack will display.
@@ -211,14 +211,14 @@ class _RegisterPageState extends State<RegisterPage> {
         style: TextStyle(color: Colors.red),
       ),
     );
-    _scaffoldKey.currentState.showSnackBar(snackbar);
+    _scaffoldKey.currentState!.showSnackBar(snackbar);
   }
-
+ // String email = "ben@gmail.com";
   createUserInFirestore() async {
     context.read<AuthenticationService>().addUserToDB(
-        uid: auth.currentUser.uid,
+        uid: auth.currentUser!.uid,
         username: _username,
-        email: auth.currentUser.email,
+        email: auth.currentUser!.email!,
         timestamp: timestamp);
   }
 }

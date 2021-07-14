@@ -10,7 +10,7 @@ class AuthScreenView extends StatefulWidget {
 }
 
 class _AuthScreenViewState extends State<AuthScreenView> {
-  PageController pageController;
+  PageController? pageController;
   int pageIndex = 0;
 
   @override
@@ -24,7 +24,7 @@ class _AuthScreenViewState extends State<AuthScreenView> {
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-    pageController.dispose();
+    pageController!.dispose();
   }
 
   onPageChanged(int pageIndex) {
@@ -35,7 +35,7 @@ class _AuthScreenViewState extends State<AuthScreenView> {
 
   onTap(int pageIndex) {
     //pageController.jumpToPage(pageIndex);
-    pageController.animateToPage(pageIndex,
+    pageController!.animateToPage(pageIndex,
         duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
   }
 

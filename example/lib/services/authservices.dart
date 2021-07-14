@@ -1,35 +1,22 @@
-import 'dart:html';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/material.dart';
-import 'package:foodielog_example/error_handler.dart';
-import 'package:foodielog_example/login.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:foodielog_example/user_model.dart';
-import 'package:foodielog_example/login/signupPage.dart';
-
-
+import 'package:foodielog_example/login/user_model.dart';
 
 class AuthenticationService {
-  final FirebaseAuth _firebaseAuth;
-  UserModel userModel = userModel();
+  late final FirebaseAuth _firebaseAuth;
+  UserModel userModel = UserModel();
   final userRef = FirebaseFirestore.instance.collection("users");
-  authServices(this._firebaseAuth);
-  late String email;
-  late String uid;
-  late String username;
-  late DateTime timestamp;
 
+  AuthenticationService(this._firebaseAuth);
 
-  // managing the user state via stream.
-  // stream provides an immediate event of
-  // the user's current authentication state,
-  // and then provides subsequent events whenever
-  // the authentication state changes.
-  Stream<User>? get authStateChanges {_firebaseAuth.authStateChanges();}
+// managing the user state via stream.
+// stream provides an immediate event of
+// the user's current authentication state,
+// and then provides subsequent events whenever
+// the authentication state changes.
+  Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
 
-  //1
+//1
   Future<String> signIn({required String email, required String password}) async {
     try {
       await _firebaseAuth.signInWithEmailAndPassword(
@@ -47,8 +34,8 @@ class AuthenticationService {
     }
   }
 
-  //2
-  Future<String> signUp({required String email,required String password}) async {
+//2
+  Future<String> signUp({required String email, required String password}) async {
     try {
       await _firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
@@ -62,34 +49,30 @@ class AuthenticationService {
         return "Something Went Wrong.";
       }
     } catch (e) {
-      print(e);
+      throw(e);
     }
   }
 
-
-  //3
+//3
   Future<void> addUserToDB(
-      { required String uid, required String username, required String email,required DateTime timestamp}) async {
+      {required String uid, required String username, required String email, required DateTime timestamp}) async {
     userModel = UserModel(
         uid: uid, username: username, email: email, timestamp: timestamp);
 
-    await userRef.doc(uid).setData(userModel.toMap(userModel));
+    await userRef.doc(uid).set(userModel.toMap(userModel));
   }
 
-  //4
-  Future<UserModel> getUserFromDB({ required String uid}) async {
-    final DocumentSnapshot doc = await userRef.doc(uid).get();
+//4
+  Future<UserModel> getUserFromDB({required String uid}) async {
+    final DocumentSnapshot docu = await userRef.doc(uid).get();
 
     //print(doc.data());
 
-    return UserModel.fromMap(document.data());
+    return UserModel.fromMap(docu.get(field));
   }
 
-  //5
+//5
   Future<void> signOut() async {
     await _firebaseAuth.signOut();
   }
-
-  noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
 }
-

@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import'package:foodielog_example/user_model.dart';
+import'package:foodielog_example/login/user_model.dart';
 import'package:foodielog_example/services/authservices.dart';
 import 'package:provider/provider.dart';
 
@@ -11,8 +11,8 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool _obscureText = true;
-  String _email, _password;
-  bool _isSubmitting;
+late  String _email, _password;
+  bool? _isSubmitting;
 
   final _formKey = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -60,8 +60,8 @@ class _LoginPageState extends State<LoginPage> {
     return Padding(
       padding: EdgeInsets.only(top: 20),
       child: TextFormField(
-        onSaved: (val) => _email = val,
-        validator: (val) => !val.contains("@") ? "Invalid Email" : null,
+        onSaved: (val) => _email = val!,
+        validator: (val) => !val!.contains("@") ? "Invalid Email" : null,
         decoration: InputDecoration(
             border: OutlineInputBorder(),
             labelText: "Email",
@@ -78,8 +78,8 @@ class _LoginPageState extends State<LoginPage> {
     return Padding(
       padding: EdgeInsets.only(top: 20),
       child: TextFormField(
-        onSaved: (val) => _password = val,
-        validator: (val) => val.length < 6 ? "Password Is Too Short" : null,
+        onSaved: (val) => _password = val!,
+        validator: (val) => val!.length < 6 ? "Password Is Too Short" : null,
         obscureText: _obscureText,
         decoration: InputDecoration(
             suffixIcon: GestureDetector(
@@ -129,7 +129,7 @@ class _LoginPageState extends State<LoginPage> {
 
   _submit() {
     final _form = _formKey.currentState;
-    if (_form.validate()) {
+    if (_form!.validate()) {
       _form.save();
       //print("Email $_email, Password $_password");
       _LoginUser();
@@ -170,8 +170,8 @@ class _LoginPageState extends State<LoginPage> {
         style: TextStyle(color: Colors.green),
       ),
     );
-    _scaffoldKey.currentState.showSnackBar(snackbar);
-    _formKey.currentState.reset();
+    _scaffoldKey.currentState!.showSnackBar(snackbar);
+    _formKey.currentState!.reset();
   }
 
   _showErrorSnack(String message) {
@@ -182,7 +182,7 @@ class _LoginPageState extends State<LoginPage> {
         style: TextStyle(color: Colors.red),
       ),
     );
-    _scaffoldKey.currentState.showSnackBar(snackbar);
+    _scaffoldKey.currentState!.showSnackBar(snackbar);
     setState(() {
       _isSubmitting = false;
     });

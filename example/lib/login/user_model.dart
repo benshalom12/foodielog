@@ -2,14 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class UserModel {
-  String email;
-  String uid;
-  String username;
-  DateTime timestamp;
+  String? email;
+   String? uid;
+   String? username;
+   DateTime? timestamp;
 
-  UserModel({required this.email, required this.uid, required this.username, required this.timestamp});
+  UserModel({  this.email,   this.uid,   this.username,   this.timestamp});
 
-  Map toMap(UserModel user) {
+  Map<String,dynamic> toMap(UserModel user) {
     var data = Map<String, dynamic>();
 
     data["uid"] = user.uid;

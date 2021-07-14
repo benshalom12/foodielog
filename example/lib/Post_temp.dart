@@ -1,10 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
 
-void main()=> runApp(Post1());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  // Fetch the available cameras before initializing the app.
+
+  runApp(Post1());
+}
 
 class Post1 extends StatefulWidget {
   const Post1({Key? key}) : super(key: key);
@@ -15,6 +22,30 @@ class Post1 extends StatefulWidget {
 final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance.collection('users').snapshots();
 
 class _Post1State extends State<Post1> {
+  final firestoreInstance = FirebaseFirestore.instance;
+  Object? fine;
+  void _onPressed0() {
+    firestoreInstance.collection("users").add(
+        {
+          "name" : "john",
+          "age" : 50,
+          "email" : "example@example.com",
+          "address" : {
+            "street" : "street 24",
+            "city" : "new york"
+          }
+        }).then((value){
+      print(value.id);
+    });
+  }
+  void _onPressed() {
+    firestoreInstance.collection("users").get().then((querySnapshot) {
+      querySnapshot.docs.forEach((result) {
+        fine = result.data();
+
+      });
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Post0();
@@ -32,7 +63,7 @@ class Post0 extends StatelessWidget {
         appBar: AppBar(
           title: Text('Test Environment'),
         ),
-        body: SimpleAnimation(),
+        body: Post(),
       ),
     );
   }
@@ -72,7 +103,7 @@ class Post extends StatelessWidget {
 
               leading: CircleAvatar(),
               title: Text('<username>'),
-              subtitle: Text('<location>'),
+              subtitle: Text(_usersStream.toString()),
             ),
             Column(
               children: [
@@ -131,7 +162,11 @@ Container(
                   ),
                   Align(
                     alignment: Alignment.topLeft,
-                    child: Text("description",)
+                    child: Text(
+                        'fine.toString()'
+
+
+                    ),
                      // style:TextStyle(fontSize: 17,fontWeight: FontWeight.bold) ,),
 
                     //alignment: AlignmentGeometry.lerp(a, b, t),
