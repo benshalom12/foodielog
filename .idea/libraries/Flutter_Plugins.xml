@@ -7,6 +7,10 @@
       <root url="file://$PROJECT_DIR$/../../../../flutter/.pub-cache/hosted/pub.dartlang.org/flutter_login_facebook-1.0.1" />
       <root url="file://$PROJECT_DIR$/../../../../flutter/.pub-cache/hosted/pub.dartlang.org/fluttertoast-8.0.7" />
       <root url="file://$PROJECT_DIR$/../../../../flutter/.pub-cache/hosted/pub.dartlang.org/firebase_database-7.1.1" />
+      <root url="file://$PROJECT_DIR$/../../../../flutter/.pub-cache/hosted/pub.dartlang.org/permission_handler-8.1.2" />
+      <root url="file://$PROJECT_DIR$/../../../../flutter/.pub-cache/hosted/pub.dartlang.org/image_picker-0.8.1+4" />
+      <root url="file://$PROJECT_DIR$/../../../../flutter/.pub-cache/hosted/pub.dartlang.org/image_picker_for_web-2.1.0" />
+      <root url="file://$PROJECT_DIR$/../../../../flutter/.pub-cache/hosted/pub.dartlang.org/flutter_plugin_android_lifecycle-2.0.2" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
