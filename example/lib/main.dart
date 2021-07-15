@@ -1,8 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/services.dart';
 import 'package:foodielog_example/Community.dart';
+import 'package:foodielog_example/Home0.dart';
+import 'package:foodielog_example/Post_temp.dart';
 // import 'package:foodielog_example/Recipes.dart';
 import 'package:foodielog_example/chat.dart';
 import 'package:foodielog_example/foodielog.dart';
@@ -42,6 +45,8 @@ class Ben extends StatelessWidget {
     );
   }
 }
+
+
 class MyApp extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
@@ -71,7 +76,7 @@ List<Widget> paints = [
       child: Community(),
   ),
   Container(
-      child:Community(),
+      child:HomePage(),
   ),
   Container(
       //child: Recipes(),
@@ -82,6 +87,7 @@ List<Widget> paints = [
   ),
 ];
 int indexzero = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

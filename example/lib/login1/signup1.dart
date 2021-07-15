@@ -1,7 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:foodielog_example/login1/error_handler.dart';
 import 'package:foodielog_example/services/authservice1.dart';
-
+import 'package:fluttertoast/fluttertoast.dart';
 
 class SignupPage extends StatefulWidget {
   @override
@@ -104,8 +105,18 @@ class _SignupPageState extends State<SignupPage> {
           GestureDetector(
             onTap: () {
               if (checkFields())
-                AuthService().signUp(email, password).then((userCreds) {
+                AuthService().signUp(email, password).then((userCred) {
+                  //FirebaseAuth.instance.currentUser!.sendEmailVerification();
                   Navigator.of(context).pop();
+                  // Fluttertoast.showToast(
+                  //     msg: "You can log in with your credentials once you verify your email",
+                  //     toastLength: Toast.LENGTH_SHORT,
+                  //     gravity: ToastGravity.CENTER,
+                  //     timeInSecForIosWeb: 1,
+                  //     backgroundColor: Colors.red,
+                  //     textColor: Colors.white,
+                  //     fontSize: 16.0
+                  // );
                 }).catchError((e) {
                   ErrorHandler().errorDialog(context, e);
                 });

@@ -1,7 +1,13 @@
+// import 'dart:html';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:foodielog_example/login1/reset1.dart';
 import 'package:foodielog_example/services/authservice1.dart';
 import 'package:foodielog_example/login1//signup1.dart';
+
+import 'error_handler.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -14,7 +20,7 @@ class _LoginPageState extends State<LoginPage> {
   late String email, password;
 
   Color greenColor = Color(0xFF00AF19);
-
+  User? user_temp =  FirebaseAuth.instance.currentUser;
   //To check fields during submit
   checkFields() {
     final form = formKey.currentState;
@@ -122,9 +128,31 @@ class _LoginPageState extends State<LoginPage> {
                               decoration: TextDecoration.underline))))),
           SizedBox(height: 50.0),
           GestureDetector(
-            onTap: () {
-              if (checkFields()) AuthService().signIn(email, password, context);
+            onTap: ()  {
+              // AuthService().signIn(email, password, context);
+
+              if (checkFields() ) {
+
+                 AuthService().signIn(email, password, context);
+                // } on Exception catch (e) {
+                //   ErrorHandler().errorDialog(context, e);
+
+
+            }
+              else{
+                print("Not Working");
+                // Fluttertoast.showToast(
+                //     msg: "if not passed",
+                //     toastLength: Toast.LENGTH_SHORT,
+                //     gravity: ToastGravity.CENTER,
+                //     timeInSecForIosWeb: 1,
+                //     backgroundColor: Colors.red,
+                //     textColor: Colors.white,
+                //     fontSize: 16.0
+                // AuthService().signOut();
+              }
             },
+
             child: Container(
                 height: 50.0,
                 child: Material(

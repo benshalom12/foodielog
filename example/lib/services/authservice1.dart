@@ -92,4 +92,14 @@ class AuthService {
   resetPasswordLink(String email) {
     FirebaseAuth.instance.sendPasswordResetEmail(email: email);
   }
+
+  sendEmailVerification(String email,String password) {
+    FirebaseAuth.instance.currentUser!.sendEmailVerification();
+  }
 }
+
+
+
+// if(user!= null && !user.emailVerified) async {
+// await user
+// }

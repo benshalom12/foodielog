@@ -3,7 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
-import 'package:rive/rive.dart';
+// import 'package:rive/rive.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,10 +20,12 @@ class Post1 extends StatefulWidget {
   _Post1State createState() => _Post1State();
 }
 final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance.collection('users').snapshots();
+dynamic store = FirebaseFirestore.instance.collection("users");
 
 class _Post1State extends State<Post1> {
   final firestoreInstance = FirebaseFirestore.instance;
   Object? fine;
+
   void _onPressed0() {
     firestoreInstance.collection("users").add(
         {
@@ -80,7 +82,7 @@ class SimpleAnimation extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-        child: RiveAnimation.network("https://public.rive.app/community/runtime-files/262-518-eggard-is-a-gud-boi.riv"),
+        // child: RiveAnimation.network("https://public.rive.app/community/runtime-files/262-518-eggard-is-a-gud-boi.riv"),
         ),
       );
 

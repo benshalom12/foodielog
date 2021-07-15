@@ -118,6 +118,7 @@
 // }
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 void main()=>runApp(HomePage());
 class HomePage extends StatefulWidget {
@@ -130,8 +131,8 @@ class _HomePageState extends State<HomePage> {
   final databaseRef = FirebaseDatabase.instance.reference();
   final Future<FirebaseApp> _future = Firebase.initializeApp();
 
-  void addData(String data) {
-    databaseRef.push().set({'name': data, 'comment': 'A good season'});
+  void addData(dynamic data) {
+    databaseRef.push().set({'name': data});
   }
 
   void printFirebase(){
@@ -170,7 +171,7 @@ class _HomePageState extends State<HomePage> {
                           // color: Colors.pinkAccent,
                             child: Text("Save to Database"),
                             onPressed: () {
-                              addData(textcontroller.text);
+                              addData(("https://picsum.photos/id/237/500/900"));
                               //call method flutter upload
                             }
                         )
