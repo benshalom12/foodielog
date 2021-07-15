@@ -1,8 +1,10 @@
 import 'dart:io';
 
 import 'package:camera/camera.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 //
 // class Upload extends StatelessWidget {
@@ -73,8 +75,9 @@ class Upload extends StatelessWidget {
                       backgroundColor: Colors.redAccent,
                     ),
                     onPressed: () {
-
-                    },
+    uploadImage(tempPostImage!);
+    Navigator.pop(context);
+    },
                     child: Text('Post'),
                   ),
 
@@ -90,7 +93,72 @@ class Upload extends StatelessWidget {
     );
   }
 }
+uploadImage(XFile file) async {
+  final _storage = FirebaseStorage.instance;
+  String imageUrl;
+  // final _picker = ImagePicker();
 
+
+
+  //Check Permissions
+
+
+
+  //Select Image
+
+
+  if (File(file.path) != null){
+    //Upload to Firebase
+    var snapshot = await _storage.ref()
+        .child('folderName/imageName')
+        .putFile(File(file.path));
+
+    var downloadUrl = await snapshot.ref.getDownloadURL();
+
+
+    imageUrl = downloadUrl;
+print(imageUrl);
+  } else {
+    print('No Path Received');
+  }
+
+
+
+
+
+
+}
+
+
+
+// class Home extends StatefulWidget {
+//   @override
+//   _HomeState createState() => _HomeState();
+// }
+//
+// class _HomeState extends State<Home> {
+//   String? imageUrl;
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(title: Text('Upload Image')),
+//       body: Column(
+//         children: <Widget>[
+//           (imageUrl != null)
+//               ? Image.network(imageUrl!)
+//               : Placeholder(fallbackHeight: 200.0,fallbackWidth: double.infinity),
+//           SizedBox(height: 20.0,),
+//           ElevatedButton(
+//             child: Text('Upload Image'),
+//             // color: Colors.lightBlue,
+//             onPressed: () => uploadImage(),
+//           )
+//         ],
+//       ),
+//     );
+//   }
+//
 
 
 

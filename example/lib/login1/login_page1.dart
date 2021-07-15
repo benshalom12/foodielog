@@ -2,7 +2,6 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:foodielog_example/login1/reset1.dart';
 import 'package:foodielog_example/services/authservice1.dart';
 import 'package:foodielog_example/login1//signup1.dart';
@@ -68,14 +67,6 @@ class _LoginPageState extends State<LoginPage> {
                       child: Text('Search, Cook, Eat, Share',
                           style:
                           TextStyle(fontFamily: 'Trueno', fontSize: 20.0))),
-                  Positioned(
-                      top: 97.0,
-                      left: 175.0,
-                      child: Container(
-                          height: 10.0,
-                          width: 10.0,
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle, color: greenColor)))
                 ],
               )),
           SizedBox(height: 25.0),

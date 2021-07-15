@@ -12,6 +12,7 @@ import 'package:foodielog_example/foodielog.dart';
 import 'package:foodielog_example/Cards.dart';
 // import 'package:foodielog_example/login/Login.dart';
 import 'package:foodielog_example/home.dart';
+import 'package:foodielog_example/image_temp.dart';
 import 'package:foodielog_example/profile.dart';
 import 'package:camera/camera.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -76,7 +77,7 @@ List<Widget> paints = [
       child: Community(),
   ),
   Container(
-      child:HomePage(),
+      child:Imgb(),
   ),
   Container(
       //child: Recipes(),
