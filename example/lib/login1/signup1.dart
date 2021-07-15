@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:foodielog_example/login1/error_handler.dart';
 import 'package:foodielog_example/services/authservice1.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class SignupPage extends StatefulWidget {
   @override
@@ -59,14 +58,6 @@ class _SignupPageState extends State<SignupPage> {
                   Text('Signup',
                       style: TextStyle(fontFamily: 'Trueno', fontSize: 60.0)),
                   //Dot placement
-                  Positioned(
-                      top: 62.0,
-                      left: 200.0,
-                      child: Container(
-                          height: 10.0,
-                          width: 10.0,
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle, color: greenColor)))
                 ],
               )),
           SizedBox(height: 25.0),
