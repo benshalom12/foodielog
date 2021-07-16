@@ -15,6 +15,8 @@ import 'package:foodielog_example/home.dart';
 import 'package:foodielog_example/image_temp.dart';
 import 'package:foodielog_example/profile.dart';
 import 'package:foodielog_example/Settings.dart';
+import 'package:foodielog_example/favourites.dart';
+import 'package:foodielog_example/notifications.dart';
 import 'package:camera/camera.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -48,6 +50,8 @@ class Ben extends StatelessWidget {
         '/privacy': (BuildContext context) => new Privacy(),
         '/terms': (BuildContext context) => new Terms(),
         '/about': (BuildContext context) => new About(),
+        '/notifications': (BuildContext context) => new Notifications(),
+        '/favourites': (BuildContext context) => new Favourite(),
         '/home': (BuildContext context) => new Ben(),
     '/cam': (BuildContext context) => new CameraExampleHome(),
         '/home': (BuildContext context) => new Ben(),
