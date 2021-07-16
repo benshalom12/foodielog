@@ -20,8 +20,10 @@ class _HOMEState extends State<HOME> {
         leading: GestureDetector(
           onTap: () {},
           child: IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.of(context).pushNamed('/favourites');
+            },
+            icon: Icon(Icons.star_border_rounded),
             color: Colors.pink,
             iconSize: 35.0,
           ),
@@ -34,7 +36,7 @@ class _HOMEState extends State<HOME> {
               onTap: () {},
               child: IconButton(
                 onPressed: () {
-                  Navigator.of(context).pushNamed('/settings');
+                  Navigator.of(context).pushNamed('/notifications');
                 },
                 icon: Icon(Icons.notifications),
                 iconSize: 35.0,
