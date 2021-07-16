@@ -14,10 +14,15 @@ import 'package:foodielog_example/Cards.dart';
 import 'package:foodielog_example/home.dart';
 import 'package:foodielog_example/image_temp.dart';
 import 'package:foodielog_example/profile.dart';
+import 'package:foodielog_example/Settings.dart';
 import 'package:camera/camera.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:foodielog_example/settings pages/permissions.dart';
+import 'package:foodielog_example/settings pages/terms.dart';
+import 'package:foodielog_example/settings%20pages/about.dart';
+import 'package:foodielog_example/settings%20pages/privacy.dart';
 
 import 'Camera.dart';
 // import 'Recipies.dart';
@@ -38,7 +43,11 @@ class Ben extends StatelessWidget {
         // '/signup': (BuildContext context) => new SignupPage(),
         '/login': (BuildContext context) => new Ben(),
         '/chat': (BuildContext context) => new chat(),
-        // '/settings': (BuildContext context) => new Settings(),
+         '/settings': (BuildContext context) => new Setting(),
+        '/permissions': (BuildContext context) => new Permissions(),
+        '/privacy': (BuildContext context) => new Privacy(),
+        '/terms': (BuildContext context) => new Terms(),
+        '/about': (BuildContext context) => new About(),
         '/home': (BuildContext context) => new Ben(),
     '/cam': (BuildContext context) => new CameraExampleHome(),
         '/home': (BuildContext context) => new Ben(),

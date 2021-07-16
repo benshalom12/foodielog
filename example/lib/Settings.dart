@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class Settings extends StatefulWidget {
-  const Settings({Key? key}) : super(key: key);
+class Setting extends StatefulWidget {
+  const Setting({Key? key}) : super(key: key);
 
   @override
-  _SettingsState createState() => _SettingsState();
+  _SettingState createState() => _SettingState();
 }
 
-class _SettingsState extends State<Settings> {
+class _SettingState extends State<Setting> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,7 +54,9 @@ class _SettingsState extends State<Settings> {
             ),
           ),
           TextButton.icon(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed('/permissions');
+            },
             icon: Icon(
               Icons.lock_open_outlined,
               color: Colors.black,
@@ -94,7 +96,7 @@ class _SettingsState extends State<Settings> {
           ),
           TextButton.icon(
             onPressed: () {
-              Navigator.of(context).pop();
+              Navigator.of(context).pop('/about');
             },
             icon: Icon(
               Icons.error_outline,
@@ -108,7 +110,9 @@ class _SettingsState extends State<Settings> {
             ),
           ),
           TextButton.icon(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed('/privacy');
+              },
             icon: Icon(
               Icons.privacy_tip_outlined,
               color: Colors.black,
@@ -121,7 +125,9 @@ class _SettingsState extends State<Settings> {
             ),
           ),
           TextButton.icon(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed('/terms');
+            },
             icon: Icon(
               Icons.article_outlined,
               color: Colors.black,
