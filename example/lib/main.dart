@@ -21,6 +21,7 @@ import 'package:camera/camera.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:path/path.dart';
 import 'package:foodielog_example/settings pages/permissions.dart';
 import 'package:foodielog_example/settings pages/terms.dart';
 import 'package:foodielog_example/settings%20pages/about.dart';

@@ -21,20 +21,23 @@ class Permissions extends StatelessWidget {
         centerTitle: true,
         backgroundColor: Colors.white,
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-              'The following permissions will be given to Foodielog in case you grant them'
-          ),
-          SizedBox(height: 15.0,),
-          Text('  1.Camera'),
-          SizedBox(height: 10.0,),
-          Text('  2.Microphone'),
-          SizedBox(height: 10.0,),
-          Text('  3.Storage'),
-        ],
+      body: Padding(
+        padding: EdgeInsets.all(10.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+                'The following permissions will be given to Foodielog in case you grant them'
+            ),
+            SizedBox(height: 15.0,),
+            Text('  1.Camera'),
+            SizedBox(height: 10.0,),
+            Text('  2.Microphone'),
+            SizedBox(height: 10.0,),
+            Text('  3.Storage'),
+          ],
+        ),
       ),
     );
   }
