@@ -137,45 +137,7 @@ class _HOMEState extends State<HOME> {
 
                 ],
               ),
-              CustomScrollView(
-                primary: false,
-                slivers: <Widget>[
-                  SliverPadding(
-                    padding: const EdgeInsets.all(20),
-                    sliver: SliverGrid.count(
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10,
-                      crossAxisCount: 2,
-                      children: <Widget>[
-                        Container(
-                          padding: const EdgeInsets.all(8),
-                          color: Colors.green[100],
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(8),
-                          color: Colors.green[200],
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(8),
-                          color: Colors.green[300],
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(8),
-                          color: Colors.green[400],
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(8),
-                          color: Colors.green[500],
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(8),
-                          color: Colors.green[600],
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              )
+
             ],
           ),
         ),
@@ -185,3 +147,60 @@ class _HOMEState extends State<HOME> {
     );
   }
 }
+
+
+
+class Scrool extends StatefulWidget {
+  const Scrool({Key? key}) : super(key: key);
+
+  @override
+  _ScroolState createState() => _ScroolState();
+}
+
+class _ScroolState extends State<Scrool> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: CustomScrollView(
+        primary: false,
+        slivers: <Widget>[
+          SliverPadding(
+            padding: const EdgeInsets.all(20),
+            sliver: SliverGrid.count(
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
+              crossAxisCount: 2,
+              children: <Widget>[
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  color: Colors.green[100],
+                ),
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  color: Colors.green[200],
+                ),
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  color: Colors.green[300],
+                ),
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  color: Colors.green[400],
+                ),
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  color: Colors.green[500],
+                ),
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  color: Colors.green[600],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+

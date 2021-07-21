@@ -6,12 +6,15 @@
 
 import 'dart:async';
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:foodielog_example/upload_post.dart';
-
+import 'package:image_picker/image_picker.dart';
 import 'main.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
+
+
 /*class Cam extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -25,8 +28,55 @@ import 'package:video_player/video_player.dart';
     );
   }
 }*/
-
-
+//
+// final ImagePicker _picker = ImagePicker() ;
+// void onImageButtonPressed(ImageSource source,{BuildContext? context})async{
+//   await _displayPickImageDialog(context!,
+//           ( int? quality) async {
+//          {
+//           final pickedFile = await _picker.getImage(
+//             source: source,
+//             imageQuality: quality,
+//           );
+//           _imageFile = pickedFile;
+//         }
+//       });
+// }
+//
+// Future<void> _displayPickImageDialog(
+//     BuildContext context, OnPickImageCallback onPick) async {
+//   return showDialog(
+//       context: context,
+//       builder: (context) {
+//         return AlertDialog(
+//           title: Text('Add optional parameters'),
+//           content: Column(
+//             children: <Widget>[
+//
+//             ],
+//           ),
+//           actions: <Widget>[
+//             TextButton(
+//               child: const Text('CANCEL'),
+//               onPressed: () {
+//                 Navigator.of(context).pop();
+//               },
+//             ),
+//             TextButton(
+//                 child: const Text('PICK'),
+//                 onPressed: () {
+//
+//                   int? quality =
+//                       ? int.parse("50")
+//                       : null;
+//                   onPick( quality);
+//                   Navigator.of(context).pop();
+//                 }),
+//           ],
+//         );
+//       });
+// }
+// }
 class CameraExampleHome extends StatefulWidget {
   @override
   _CameraExampleHomeState createState() {
@@ -59,8 +109,11 @@ void logError(String code, String? message) {
 
 class _CameraExampleHomeState extends State<CameraExampleHome>
     with WidgetsBindingObserver, TickerProviderStateMixin {
+  final ImagePicker _picker = ImagePicker() ;
   CameraController? controller;
   XFile? imageFile;
+  Uint8List? done;
+  // XFile? XpickedFile;
   XFile? videoFile;
   VideoPlayerController? videoController;
   VoidCallback? videoPlayerListener;
@@ -529,11 +582,40 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
       ),
     );
   }
+   Future<XFile> pickImagenow() async{
+    final pickedFile = await _picker.getImage(
+      source: ImageSource.gallery,
+    );
+   XFile XpickedFile = XFile(pickedFile!.path);
+
+  return XpickedFile;
+  }
+
+
 
   /// Display the control bar with buttons to take pictures and record videos.
   Widget _captureControlRowWidget() {
     final CameraController? cameraController = controller;
+    void getimage() {
+      pickImagenow().then((XFile? file) {
+          setState(() {
 
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => Upload(tempPostImage: file),
+              ),
+            );
+            // videoController?.dispose();
+            // videoController = null;
+          });
+          if (file != null) showInSnackBar('Picture saved to ${file.path}');
+          else{
+            showInSnackBar('nulllllllllll}');
+          }
+
+      });
+    }
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       mainAxisSize: MainAxisSize.max,
@@ -548,37 +630,11 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
               : null,
         ),
         IconButton(
-          icon: const Icon(Icons.videocam),
+          icon: const Icon(Icons.image),
           color: Colors.redAccent,
-          onPressed: cameraController != null &&
-              cameraController.value.isInitialized &&
-              !cameraController.value.isRecordingVideo
-              ? onVideoRecordButtonPressed
-              : null,
+          onPressed:getimage,
         ),
-        IconButton(
-          icon: cameraController != null &&
-              cameraController.value.isRecordingPaused
-              ? Icon(Icons.play_arrow)
-              : Icon(Icons.pause),
-          color: Colors.redAccent,
-          onPressed: cameraController != null &&
-              cameraController.value.isInitialized &&
-              cameraController.value.isRecordingVideo
-              ? (cameraController.value.isRecordingPaused)
-              ? onResumeButtonPressed
-              : onPauseButtonPressed
-              : null,
-        ),
-        IconButton(
-          icon: const Icon(Icons.stop),
-          color: Colors.red,
-          onPressed: cameraController != null &&
-              cameraController.value.isInitialized &&
-              cameraController.value.isRecordingVideo
-              ? onStopButtonPressed
-              : null,
-        )
+
       ],
     );
   }
