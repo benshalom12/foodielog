@@ -62,12 +62,23 @@ class profile extends StatelessWidget {
                     ],
 
                 ),
-                SizedBox()
+                SizedBox(height: 20.0,),
+              TextFormField(
+                  decoration: InputDecoration(
+                      labelText: 'USERNAME',
+                      labelStyle: TextStyle(
+                          fontFamily: 'Trueno',
+                          fontSize: 12.0,
+                          color: Colors.grey.withOpacity(0.5)),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.green),
+                      )),
+              )
               ]
 
             )
           )
-
+              
 
 
         ),
