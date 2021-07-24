@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:camera/camera.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,12 +23,14 @@ import 'package:image_picker/image_picker.dart';
 // }
 
 
-
+ FirebaseAuth auth = FirebaseAuth.instance;
 
 
 
 class Upload extends StatelessWidget {
   final XFile? tempPostImage;
+
+
 
   const Upload({Key? key, required this.tempPostImage}) : super(key: key);
 
@@ -110,7 +113,7 @@ uploadImage(XFile file) async {
   if (File(file.path) != null){
     //Upload to Firebase
     var snapshot = await _storage.ref()
-        .child('folderName/imageName')
+        .child(auth.currentUser!.uid.toString())
         .putFile(File(file.path));
 
     var downloadUrl = await snapshot.ref.getDownloadURL();
@@ -118,6 +121,8 @@ uploadImage(XFile file) async {
 
     imageUrl = downloadUrl;
 print(imageUrl);
+
+// use this image url to put in the
   } else {
     print('No Path Received');
   }
