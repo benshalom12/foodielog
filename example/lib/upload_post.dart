@@ -113,16 +113,22 @@ uploadImage(XFile file) async {
   if (File(file.path) != null){
     //Upload to Firebase
     var snapshot = await _storage.ref()
-        .child(auth.currentUser!.uid.toString())
+        .child('${auth.currentUser!.uid}/')
+    //maintain the number of posts each user maintains
         .putFile(File(file.path));
 
     var downloadUrl = await snapshot.ref.getDownloadURL();
+
+
+
+
 
 
     imageUrl = downloadUrl;
 print(imageUrl);
 
 // use this image url to put in the
+  // You also have to work on favouritres
   } else {
     print('No Path Received');
   }

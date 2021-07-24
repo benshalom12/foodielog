@@ -26,7 +26,7 @@ class profile extends StatelessWidget {
       
     }
     Future uploadPic(BuildContext context)async {
-      String fileName = basename(_image. Path);
+      String fileName = basename(_image.Path);
       StorageReference firebaseStorageRef = FirebaseStorage.instance.ref().child(fileName);
       StorageUploadTask uploadTask;
       uploadTask = firebaseStorageRef.putFile(_image);
