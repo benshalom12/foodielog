@@ -36,6 +36,9 @@ class Upload extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if(tempPostImage?.path==null){
+      Navigator.pop(context);
+    }
     return MaterialApp(
         home:
         Scaffold(

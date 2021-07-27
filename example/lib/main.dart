@@ -22,6 +22,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:foodielog_example/profile_info.dart';
+import 'package:foodielog_example/temp_image%20picker.dart';
 import 'package:path/path.dart';
 import 'package:foodielog_example/settings pages/permissions.dart';
 import 'package:foodielog_example/settings pages/terms.dart';
@@ -93,7 +94,7 @@ List<Widget> paints = [
       child: Community(),
   ),
   Container(
-      child:profile(),
+      child:ProfilePage(),
   ),
   Container(
       //child: Recipes(),

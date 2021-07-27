@@ -2,6 +2,8 @@
     package="com.example.foodielog_example">
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
    <application
         android:label="foodielog_example"
         android:icon="@mipmap/ic_launcher">

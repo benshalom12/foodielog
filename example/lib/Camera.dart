@@ -13,6 +13,7 @@ import 'main.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
+import 'package:file_picker/file_picker.dart';
 
 
 /*class Cam extends StatelessWidget {
@@ -592,6 +593,48 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
   }
 
 
+  // //
+  //
+  //
+  //
+  // Navigator.push(
+  // context,
+  // MaterialPageRoute(
+  // builder: (context) => Upload(tempPostImage: file),
+  // ),
+  // );
+  //
+  // //
+  void sendIm() {
+    takeIm().then((XFile? file) {
+
+        setState(() {
+          imageFile = file;
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Upload(tempPostImage: file),
+            ),
+          );
+          videoController?.dispose();
+          videoController = null;
+        });
+        // if (file != null) showInSnackBar('Picture saved to ${file.path}');
+
+    });
+  }
+  Future<XFile?> takeIm() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
+try {
+  if (result != null) {
+    File file = File(result.files.single.path!);
+    return XFile(file.path);
+  }
+}
+    catch(e){
+      print("Excep");
+    }
+  }
 
   /// Display the control bar with buttons to take pictures and record videos.
   Widget _captureControlRowWidget() {
@@ -632,7 +675,9 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
         IconButton(
           icon: const Icon(Icons.image),
           color: Colors.redAccent,
-          onPressed:getimage,
+    onPressed:sendIm,
+
+
         ),
 
       ],
