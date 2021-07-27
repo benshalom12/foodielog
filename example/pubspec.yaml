@@ -37,6 +37,10 @@ dependencies:
   fluttertoast: ^8.0.7
   image_picker: ^0.8.2
   file_picker: ^3.0.3
+  uuid: ^3.0.4
+
+
+
 
 
 dev_dependencies:

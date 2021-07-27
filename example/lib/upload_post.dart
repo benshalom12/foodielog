@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:camera/camera.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -6,6 +7,11 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'DataIO.dart';
+// import 'package:uuid/uuid.dart';
+//
+// var uuid = Uuid();
 
 //
 // class Upload extends StatelessWidget {
@@ -101,6 +107,10 @@ class Upload extends StatelessWidget {
 }
 uploadImage(XFile file) async {
   final _storage = FirebaseStorage.instance;
+  final databaseRef = FirebaseDatabase.instance.reference();
+  final childpath = databaseRef.child('/users/${auth.currentUser!.uid}/posts/');
+
+
   String imageUrl;
   // final _picker = ImagePicker();
 
@@ -116,7 +126,7 @@ uploadImage(XFile file) async {
   if (File(file.path) != null){
     //Upload to Firebase
     var snapshot = await _storage.ref()
-        .child('${auth.currentUser!.uid}/')
+        .child('${auth.currentUser!.uid}/${Random().nextInt(Random().nextInt(10000000))}/')
     //maintain the number of posts each user maintains
         .putFile(File(file.path));
 
@@ -129,6 +139,9 @@ uploadImage(XFile file) async {
 
     imageUrl = downloadUrl;
 print(imageUrl);
+
+     childpath.child('${imageUrl.substring(131)}/').update({'imgurl': imageUrl});
+// addData('users/${auth.currentUser!.uid}/posts/','imgurl',imageUrl);
 
 // use this image url to put in the
   // You also have to work on favouritres
